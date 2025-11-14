@@ -23,8 +23,9 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16 gap-4">
           <Link href="/" className="flex items-center gap-2 flex-shrink-0 group">
-            <div className="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center shadow-lg group-hover:shadow-xl transition-smooth">
-              <span className="text-primary-foreground font-black text-lg">CB</span>
+            <div className="w-8 h-8 ">
+              {/* <span className="text-primary-foreground font-black text-lg">CB</span> */}
+              <img src="/logo.png" alt="Click Buy Logo" />
             </div>
             <span className="font-black text-xl hidden sm:inline text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">Click Buy</span>
           </Link>
