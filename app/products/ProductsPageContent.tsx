@@ -1,28 +1,33 @@
-/* "use client";
+"use client";
 
 import { useState, useMemo } from "react";
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams } from "next/navigation";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import ProductCard from "@/components/product-card";
 import ProductFilters from "@/components/product-filters";
 import { products } from "@/lib/data/products";
 
-export default function ProductsPage() {
+export default function ProductsPageContent() {
   const searchParams = useSearchParams();
   const [selectedCategory, setSelectedCategory] = useState("");
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 2000]);
-  
+
   const searchQuery = searchParams.get("search") || "";
 
   const filteredProducts = useMemo(() => {
     return products.filter((product) => {
-      const matchesCategory = selectedCategory === "" || product.category === selectedCategory;
-      const matchesPrice = product.price >= priceRange[0] && product.price <= priceRange[1];
-      const matchesSearch = searchQuery === "" || 
+      const matchesCategory =
+        selectedCategory === "" || product.category === selectedCategory;
+
+      const matchesPrice =
+        product.price >= priceRange[0] && product.price <= priceRange[1];
+
+      const matchesSearch =
+        searchQuery === "" ||
         product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         product.description.toLowerCase().includes(searchQuery.toLowerCase());
-      
+
       return matchesCategory && matchesPrice && matchesSearch;
     });
   }, [selectedCategory, priceRange, searchQuery]);
@@ -33,10 +38,16 @@ export default function ProductsPage() {
 
       <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 w-full">
         <div>
-          <h1 className="text-3xl sm:text-4xl font-bold text-foreground mb-2">Todos los Productos</h1>
+          <h1 className="text-3xl sm:text-4xl font-bold text-foreground mb-2">
+            Todos los Productos
+          </h1>
+
           {searchQuery && (
             <p className="text-muted-foreground mb-6">
-              Resultados para: <span className="font-semibold text-foreground">"{searchQuery}"</span>
+              Resultados para:{" "}
+              <span className="font-semibold text-foreground">
+                "{searchQuery}"
+              </span>
             </p>
           )}
         </div>
@@ -54,7 +65,8 @@ export default function ProductsPage() {
           <div className="lg:col-span-3">
             <div className="flex justify-between items-center mb-6">
               <p className="text-muted-foreground">
-                Mostrando {filteredProducts.length} producto{filteredProducts.length !== 1 ? "s" : ""}
+                Mostrando {filteredProducts.length} producto
+                {filteredProducts.length !== 1 ? "s" : ""}
               </p>
             </div>
 
@@ -77,18 +89,5 @@ export default function ProductsPage() {
 
       <Footer />
     </div>
-  );
-}
- */
-"use client";
-
-import { Suspense } from "react";
-import ProductsPageContent from "./ProductsPageContent";
-
-export default function ProductsPageWrapper() {
-  return (
-    <Suspense fallback={<div className="p-8">Cargando productos...</div>}>
-      <ProductsPageContent />
-    </Suspense>
   );
 }
